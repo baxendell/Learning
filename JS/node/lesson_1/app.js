@@ -26,4 +26,4 @@ function getProfile(username) {
 }
 //console.log(process.argv);
 const users = process.argv.slice(2);
-users.forEach( getProfile);
+users.forEach( getProfile)
