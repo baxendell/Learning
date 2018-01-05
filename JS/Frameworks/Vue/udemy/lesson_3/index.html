@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>VueJs</title>
+	<link href="stylesheet" href="">
+	<script src="vue.js"></script>
+</head>
+
+<body>
+
+	<div id="app">
+		<button v-on:click="increase(2, $event)">Click Me</button>
+		<p>{{counter}}</p>
+		<p v-on:mousemove="updateCoordinates">Coordinates: {{x}}/{{y}}
+		-<span v-on:mousemove.stop="">Dead Spot</span>
+		</p>
+		<input type="text" v-on:keyup.enter.space="alertMe">
+	</div>
+
+<hr>
+
+	<div id="exercise">
+		<!--show an alert when button is clicked-->
+		<div>
+			<button v-on:click="alertClick">Show Alert</button>
+		</div>
+		<!--Listen to "keydown" event and store the value in a data property(hint: event.target.value gives you the value)-->
+		<div>
+			<input type="text" v-on:keydown="valueUpdate">
+			<p>{{value}}</p>
+		</div>
+		<!--Adjust the example from 2 to only fire if the "key down" is the ENTER key-->
+		<div>
+			<input type="text" v-on:keydown.enter="valueUpdate">
+			<p>{{value}}</p>
+		</div>
+	</div>
+</body>
+
+<script>
+new Vue({
+	el: '#app',
+  data: {
+  	counter: 0,
+  	x: 0,
+  	y: 0,
+  },
+  methods: {
+  	increase: function(step, event) {
+  		this.counter += step;
+  	},
+  	updateCoordinates: function(event) {
+  		this.x = event.clientX;
+  		this.y = event.clientY;
+  	},
+  	alertMe: function() {
+  		alert('Alert!');
+  	}
+  }
+});
+
+new Vue({
+	el: '#exercise',
+	data: {
+		value: '',
+	},
+	methods: {
+		alertClick: function() {
+			alert('Clicked');
+		},
+		valueUpdate: function() {
+			this.value = event.target.value;
+		}
+	}
+});
+</script>

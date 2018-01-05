@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>VueJs</title>
+	<link href="stylesheet" href="">
+	<script src="vue.js"></script>
+	
+</head>
+
+<body>
+
+	<div id="app">
+		<p v-if="show">You can see me!</p>
+		<p v-else>Now you see me!</p>
+		<template v-if="show">
+			<h1>Heading</h1>
+			<p>Inside a template</p>
+		</template>
+		<p v-show="show">Do you also see me?</p>
+		<button @click="show = !show">Switch</button>
+	</div>
+
+	<div id="app2">
+		<ul>
+			<li v-for="(ingredient, i) in ingredients" :key="ingredient">{{ ingredient }} ({{ i }})</li>
+		</ul>
+		<button @click="ingredients.push('spices')">Add New</button>
+		
+		<hr>
+
+			<ul>
+				<li v-for="person in persons">
+					<div v-for="(value, key, index) in person">{{key}}: {{value}} ({{index}})</div>
+				</li>
+			</ul>
+			<span v-for="n in 10">{{n}}</span>
+		<hr>
+		<template v-for="(ingredient, index) in ingredients">
+			<h1>{{ingredient}}</h1>
+			<p>{{index}}</p>
+		</template>
+	</div>
+
+	<hr>
+
+	<div id="exercise">
+		<!--1) Hook up the button to toggle the display of the two paragraphs. Use both v-if and v-show and inspect the elements to see the difference -->
+		<div>
+			<button @click="show = !show">Toggle</button>
+			<p v-if="show">You either see mee...</p>
+			<p v-show="show">...or me</p>
+		</div>
+		<!--2) Output an <ul> of array elements of your choice also print the index-->
+		<ul>
+			<li v-for="(candy, i) in candies">{{candy}} ({{i}})</li>
+		</ul>
+		<!--3) Print all key-value pairs of the following object: (title: Lord of Rings, author: 'J.R.R. Tolkeins', books: '3'). Also print the index of each item-->
+		<ul>
+			<li v-for="book in books">
+				<div v-for="(value, key, index) in book"><strong>{{key}}:</strong> {{value}} ({{index}})</div>
+			</li>
+		</ul>
+		<!--4)Print out the following object(only the values) and also create a nested loop for the array: (name: 'TestObject', data: [1.67, 1.33, 0.98, 2.21]) (use v-for)-->
+		<ul>
+			<li v-for="object in objects">
+				<h2>{{object.name}}</h2>
+				<div v-for="value in object.data">{{value}}</div>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+<script>
+new Vue({
+	el: '#app',
+	data: {
+		show: true
+	}
+});
+new Vue({
+	el: '#app2',
+	data: {
+		ingredients: ['meat', 'fruit', 'cookies'],
+		persons: [
+		{name: 'Max', age: 27, color: 'red'},
+		{name: 'Anna', age: 'unknown', color: 'blue'}
+		]
+	}
+});
+new Vue({
+	el: '#exercise',
+	data: {
+		show: true,
+		candies: ['chocolate', 'butterfinger', 'twix'],
+		books: [{title: 'Lord of the Rings', author: 'J.R.R. Tolkien', books: 3}],
+		objects: [{name: 'TestObject', data: [1.67, 1.33, 0.98, 2.21]},]
+	}
+});
+</script>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>VueJs</title>
+	<link href="stylesheet" href="">
+	<script src="vue.js"></script>
+</head>
+
+<body>
+
+	<div id="app">
+		<input v-model="name" type="text">
+		<p>{{name}}</p>
+
+		<hr>
+		<button v-on:click="counter++">Increase</button>
+		<button v-on:click="counter--">Decrease</button>
+		<button v-on:click="secondCounter++">Increase Second</button>
+		<p>Counter: {{ counter }} | {{ secondCounter }}</p>
+		<p>Result: {{ result() }} | {{output}}</p>
+	</div>
+
+  <hr>
+
+  <div id="exercise">
+    <!--Show result of "not there yet" as long as "value" is not equal to 37 - change value with buttons.  Print "done" once you did it -->
+    <div>
+      <p>Current Value: {{value}}</p>
+      <button @click="value += 5">Add 5</button>
+      <button @click="value += 1">Add 1</button>
+      <p>{{result}}</p>
+    </div>
+
+    <!-- watch for changes in the result, and reset the value after 5s (hint: setTimeout(...,5000))-->
+    <div>
+      <input type="text">
+      <p>{{value}}</p>
+    </div>
+
+  </div>
+</body>
+
+<script>
+new Vue({
+	el: '#app',
+  data: {
+  	name: 'Blake',
+  	counter: 0,
+  	secondCounter: 0
+  },
+  computed: {
+  	output: function() {
+  		console.log('Computed');
+  		return this.counter > 5 ? 'Greater 5' : 'Smaller than 5'
+  	}
+  },
+  watch: {
+  	counter: function(value){
+  		var vm = this;
+  		setTimeout(function() {
+  			vm.counter = 0;
+  			},2000);
+  	}
+  },
+  methods: {
+  	result: function(){
+  		console.log('Method');
+  		return this.counter > 5 ? 'Greater 5' : 'Smaller than 5'
+  	}
+  }
+});
+
+new Vue({
+  el: '#exercise',
+  data: {
+    value: 0,
+  },
+  computed: {
+    result: function() {
+      return this.value > 37 ? 'Done' : 'Not there yet'
+    }
+  },
+  watch: {
+    value: function() {
+      var vm = this;
+      setTimeout(function(){
+        vm.value = 0;
+      },5000);
+    }
+  }
+});
+</script>
