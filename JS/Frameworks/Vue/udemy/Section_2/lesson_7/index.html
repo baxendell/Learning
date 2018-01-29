@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>VueJs</title>
+	<link href="stylesheet" href="">
+	<script src="vue.js"></script>
+	
+</head>
+
+<body>
+	<div id="app1">
+		<h1 ref="heading">{{title}}</h1>
+		<button @click="show" ref="myButton">Show Paragraph</button>
+		<p v-if="showParagraph">This is not always visible</p>
+	</div>
+
+	<div id="app2">
+		<h1>{{title}}</h1>
+		<button @click="onChange">Change Something in Vue</button>
+		<hello></hello>
+		<hello></hello>
+	</div>
+
+	<div id="app3">
+	</div>
+	<div class="hello"></div>
+
+	
+</body>
+</html>
+<script>
+var data = {
+	title: 'The VueJS Instance',
+	showParagraph: false
+}
+
+Vue.component('hello', {
+	template: '<h1>Hello</h1>'
+});
+
+var vm1 = new Vue({
+	data: data,
+	methods: {
+		show: function() {
+			this.showParagraph = true;
+			this.updateTitle('The VueJS Instance (Updated)');
+			this.$refs.myButton.innterText = 'Test';
+		},
+		updateTitle: function(title) {
+			this.title = title;
+		}
+	},
+	computed: {
+		lowercaseTitle: function() {
+			return this.title.toLowerCase();
+		}
+	},
+	watch: {
+		title: function(value) {
+			alert('Title changed, new value: ' + value);
+		}
+	}
+});
+
+vm1.$mount('#app1');
+
+console.log(vm1.$data === data);
+vm1.$refs.heading.innerText = "Something Else";
+
+setTimeout(function() {
+	vm1.title = 'Changed by Time';
+	vm1.show();
+}, 3000);
+
+var vm2 = new Vue({
+	el: '#app2',
+	data: {
+		title: 'The Second Instance'
+	},
+	methods: {
+		onChange: function() {
+			vm1.title = 'Changed!';
+		}
+	}
+});
+
+var vm3 = new Vue({
+	template: '<h1>Hello!</h1>'
+});
+
+vm3.$mount('#app3');
+//document.getElementById('app3').appendChild(vm3.$el);
+
+</script>
