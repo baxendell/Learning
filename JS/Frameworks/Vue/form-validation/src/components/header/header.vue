@@ -15,8 +15,8 @@
           <router-link to="/dashboard">Dashboard</router-link>
         </li>
         <li v-if="auth">
-          <button class="logout" @click="onLogout">Logout</button>
-        </li>      
+          <button @click="onLogout" class="logout">Logout</button>
+        </li>
       </ul>
     </nav>
   </header>
@@ -25,7 +25,7 @@
 <script>
   export default {
     computed: {
-      auth() {
+      auth () {
         return this.$store.getters.isAuthenticated
       }
     },

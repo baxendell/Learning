@@ -5,7 +5,7 @@ import axios from 'axios'
 import router from './router'
 import store from './store'
 
-axios.defaults.baseURL = 'https://vue-axios-29d36.firebaseio.com'
+axios.defaults.baseURL = 'https://vue-form-2442f.firebaseio.com'
 // axios.defaults.headers.common['Authorization'] = 'fasfdsa'
 axios.defaults.headers.get['Accepts'] = 'application/json'
 

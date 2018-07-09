@@ -12,7 +12,7 @@
     components: {
       'app-header': Header
     },
-    created() {
+    created () {
       this.$store.dispatch('tryAutoLogin')
     }
   }
