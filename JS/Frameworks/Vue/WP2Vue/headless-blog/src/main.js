@@ -7,7 +7,7 @@ import router from './router'
 
 Vue.use(VueResource)
 
-Vue.http.options.root = 'http://localhost:90/wp-json'
+Vue.http.options.root = 'http://www.blakebaxendell.com/wp-json'
 
 Vue.config.productionTip = false
 
