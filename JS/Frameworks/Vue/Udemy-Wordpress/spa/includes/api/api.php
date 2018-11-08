@@ -21,5 +21,4 @@ function spa_rest_api_init() {
 		'callback' => 'spa_menus_get_menu_data'
 		]
 	);
-
 }
