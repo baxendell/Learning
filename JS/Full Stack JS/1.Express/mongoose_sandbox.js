@@ -24,8 +24,20 @@ db.once("open", function(){
 	});
 
 	AnimalSchema.pre("save", function(next){
-		
+		if(this.mass >= 100) {
+			this.size = "big";
+		} else if(this.mass >= 5 && this.mass < 100){
+			this.size = "medium";
+		} else {
+			this.size = "small";
+		}
+		next();
 	});
+
+	AnimalSchema.statics.findSize = function(size, callback){
+		//this == animal
+		return this.find({size: size}, callback);
+	}
 
 	var Animal = mongoose.model("Animal", AnimalSchema);
 
@@ -72,9 +84,9 @@ db.once("open", function(){
 		if (err) console.error(err);
 		Animal.create(animalData, function(err, animals){
 			if (err) console.error(err);
-			Animal.find({size: "big"}, function(err, animals){
+			Animal.findSize({}, function(err, animals){
 				animals.forEach(function(animal){
-					console.log(animal.name + "the" + animal.color + " " + animal.type);
+					console.log(animal.name + "the" + animal.color + " " + animal.type + " is a " + animal.size);
 				});
 				db.close(function(){
 					console.log("db connection closed");
